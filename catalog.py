@@ -25,5 +25,7 @@ class catalog(object):
                 return item.getItemPrice()
         return None
     
-    def updateItem(self, itemIdChoice, data):
-        print("Item Updated")
+    def updateItem(self, itemIdChoice):
+        for item in self.itemList:
+            if item.getItemId() == itemIdChoice:
+                return item.updateQuantity(item.getItemQuantity()-1)

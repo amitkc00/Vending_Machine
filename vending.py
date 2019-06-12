@@ -20,7 +20,7 @@ while(condition):
     os.system('clear')
     print("\n **** Welcome to Amit Vending Machine. ****")
     print("Please select the Item from below list \n")
-    print("\nName \t\t\t Price \t\t\t ItemID ")
+    print("\nName \t\t\t Price \t\t\t Quantity \t\t\t ItemID ")
     myCatalog.displayCatalog()
     
     itemIdChoice = input("Enter the Item Id = ")
@@ -43,8 +43,10 @@ while(condition):
         
         else:
             print("**** Error : Wrong Payment Type Selected")
-
-        myCatalog.updateItem(itemIdChoice,('quantity', -1))
+        
+        #Reduce Item Quantity by 1.
+        myCatalog.updateItem(itemIdChoice)
+        print("**** Succcess : Item Dispatched ****")
 
     input("Press Any Key to Continue")
     condition = True

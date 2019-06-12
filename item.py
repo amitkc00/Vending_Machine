@@ -7,7 +7,7 @@ class item(object):
         self.quantity = quantity
     
     def displayItem(self):
-        print("Name = {0} \t\t Price = {1} \t\t ItemId = {2}".format(self.name, self.price, self.itemId))
+        print("Name = {0} \t\t Price = {1} \t\t Quantity = {2} \t\t ItemId = {3}".format(self.name, self.price, self.quantity, self.itemId))
     
     def getItemId(self):
         return self.itemId
