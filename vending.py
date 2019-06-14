@@ -1,52 +1,68 @@
 from catalog import catalog
 from cashPayment import cashPayment
 from cardPayment import cardPayment
-import os 
-
 from pdb import set_trace
+from enum import Enum
+import os
+#####
 
-myCatalog = catalog()
-cashPayment = cashPayment()
-cardPayment = cardPayment()
+class PAYMENT_TYPE(Enum):
+    CASH = 1
+    CARD = 2
 
-myCatalog.addItem('TWIX',11,1,10)
-myCatalog.addItem('WATER',12,.5,10)
-myCatalog.addItem('MINT',13,.25,20)
+class Vending(object):
 
-condition = True
-
-while(condition):
-    
-    os.system('clear')
-    print("\n **** Welcome to Amit Vending Machine. ****")
-    print("Please select the Item from below list \n")
-    print("\nName \t\t\t Price \t\t\t Quantity \t\t\t ItemID ")
-    myCatalog.displayCatalog()
-    
-    itemIdChoice = input("Enter the Item Id = ")
-    itemIdChoice = int(itemIdChoice)
-
-    paymentChoice = input("Pay by CASH or CARD. Enter 1 for CASH, 2 for CARD = ")
-    paymentChoice = int(paymentChoice)
-
-    if not myCatalog.checkCustomerChoice(itemIdChoice):
-        print("**** Error : Wrong Item Selected *****")
-    else:
-        amountToPay = myCatalog.getItemPrice(itemIdChoice)
-        if paymentChoice == 1:
-            if cashPayment.processPayment(amountToPay):
-                print("Cash Payment Successfull")
-
-        elif paymentChoice == 2:
-            if cardPayment.processPayment({},amountToPay):
-                print("Card Payment Successful")
+    def __init__(self):
+        self.myCatalog = catalog()
         
+    @staticmethod
+    def processPayment(amount):
+        paymentChoice = input("Pay by CASH or CARD. Enter 1 for CASH, 2 for CARD = ")
+        paymentChoice = int(paymentChoice)
+
+        #set_trace()
+        if paymentChoice == PAYMENT_TYPE.CASH.value:
+            input("Press any key to Confirm Cash Payment")
+            payment = cashPayment()
+        elif paymentChoice == PAYMENT_TYPE.CARD.value:
+            print("Please Enter your Card Details")
+            cardNumber = input("Enter the Card Number = ")
+            cardExpiry = input("Enter Expiry in MMYY format = ")
+            cardCvv = input("Enter the CVV code = ")
+            confirm = input("Press any key to Confirm Card Payment")
+            payment = cardPayment(cardNumber, cardExpiry, cardCvv)
         else:
-            print("**** Error : Wrong Payment Type Selected")
+            print("Wrong Payment ")
+            return False
         
-        #Reduce Item Quantity by 1.
-        myCatalog.updateItem(itemIdChoice)
-        print("**** Succcess : Item Dispatched ****")
+        if payment.processPayment(amount):
+            print("Payment Successful. Item ready to be dispatched.")
+            return True
 
-    input("Press Any Key to Continue")
-    condition = True
+    def welcomeScreen(self):
+        os.system('clear')
+        print("\n **** Welcome to Amit Vending Machine. ****")
+        print("Please select the Item from below list \n")
+        print("\nName \t\t\t Price \t\t\t Quantity \t\t\t ItemID ")
+        self.myCatalog.displayCatalog()
+
+        itemIdChoice = input("Enter the Item Id = ")
+        itemIdChoice = int(itemIdChoice)
+
+        if not self.myCatalog.checkCustomerChoice(itemIdChoice):
+            print("**** Error : Wrong Item Selected *****") 
+        else:
+            itemPrice = self.myCatalog.getItemPrice(itemIdChoice)
+            paymentOk = Vending.processPayment(itemPrice)
+            if paymentOk:
+                self.dispatchItem(itemIdChoice)
+    
+    def stockVending(self):
+        self.myCatalog.addItem('TWIX',11,1,10)
+        self.myCatalog.addItem('WATER',12,.5,10)
+        self.myCatalog.addItem('MINT',13,.25,20)
+    
+    def dispatchItem(self, itemIdChoice):
+        #Reduce Item Quantity by 1.
+        self.myCatalog.updateItem(itemIdChoice)
+        print("**** Succcess : Item Dispatched ****")

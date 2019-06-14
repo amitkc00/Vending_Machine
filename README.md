@@ -33,3 +33,11 @@ The goal is to create a basic Vending Machine System.
 ### What to Do:-
 1. Add Logging Mechanism
 2. Add Exception Handling Mechanism.
+
+## Phase 4 :-
+
+### What to Do:-
+1. Expose the App to outside as REST using Flask.
+2. Add Credit Card Authorization.
+3. Create simple CRUD Front End application.
+4. Deploy it to AWS
