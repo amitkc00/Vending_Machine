@@ -23,19 +23,14 @@ class Vending(object):
         #set_trace()
         if paymentChoice == PAYMENT_TYPE.CASH.value:
             input("Press any key to Confirm Cash Payment")
-            payment = cashPayment()
+            payment = cashPayment(amount)
         elif paymentChoice == PAYMENT_TYPE.CARD.value:
-            print("Please Enter your Card Details")
-            cardNumber = input("Enter the Card Number = ")
-            cardExpiry = input("Enter Expiry in MMYY format = ")
-            cardCvv = input("Enter the CVV code = ")
-            confirm = input("Press any key to Confirm Card Payment")
-            payment = cardPayment(cardNumber, cardExpiry, cardCvv)
+            payment = cardPayment(amount)
         else:
             print("Wrong Payment ")
             return False
         
-        if payment.processPayment(amount):
+        if payment.processPayment():
             print("Payment Successful. Item ready to be dispatched.")
             return True
 

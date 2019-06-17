@@ -24,13 +24,18 @@ The goal is to create a basic Vending Machine System.
 ## Phase 2 :-
 
 ### What to Do
-1. Add Database logic.
+1. Add Database logic. Proper Schema Design.
 2. Add System Admin Role & Customer Role.
-3. Add Sales Report
+3. Add Sales Report.
+4. Follow Python Coding Standard.
+5. Does my Program conform to SOLID Principles.
+6. Encapsulate what varies and what remains the same.
+
 
 ## Phase 3 :-
 
 ### What to Do:-
+0. Is there a Design Pattern I can implement here.
 1. Add Logging Mechanism
 2. Add Exception Handling Mechanism.
 

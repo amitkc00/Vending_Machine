@@ -20,5 +20,3 @@ class item(object):
     
     def updateQuantity(self, newQuantity):
         self.quantity = newQuantity
-    
-
